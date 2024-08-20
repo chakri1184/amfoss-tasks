@@ -1,1 +1,54 @@
+# python
+print("Hello, World!")
+
+# Ruby
+puts "Hello, World!"
+
+# Elixir
+IO.puts "Hello, World!"
+
+# Javascript
+console.log("Hello, World!");
+
+# Java
+public class SubTask1 {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+
+# Go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+
+# C
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+
+# c++
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
+}
+
+# Rust
+fn main() {
+    println!("Hello, World!");
+}
+
+# Haskell
+main :: IO ()
+main = putStrLn "Hello, World!"
+
 

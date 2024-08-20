@@ -1,1 +1,102 @@
+# Step 1: Add Dependencies
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.14.0
+
+# Create a model of super hero data
+class Superhero {
+  final String name;
+  final String imageUrl;
+  final String power;
+
+  Superhero({required this.name, required this.imageUrl, required this.power});
+
+  factory Superhero.fromJson(Map<String, dynamic> json) {
+    return Superhero(
+      name: json['name'],
+      imageUrl: json['images']['sm'],
+      power: json['powerstats']['strength'],
+    );
+  }
+}
+
+# Fetch data from API
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'superhero_model.dart'; // Import the model file
+
+class SuperheroList extends StatefulWidget {
+  @override
+  _SuperheroListState createState() => _SuperheroListState();
+}
+
+class _SuperheroListState extends State<SuperheroList> {
+  List<Superhero> superheroes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSuperheroes();
+  }
+
+  Future<void> fetchSuperheroes() async {
+    final response = await http.get(Uri.parse('https://superheroapi.com/api/yourapikey/1-10'));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      setState(() {
+        superheroes = data.map((json) => Superhero.fromJson(json)).toList();
+      });
+    } else {
+      throw Exception('Failed to load superheroes');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Superhero Encyclopedia'),
+      ),
+      body: superheroes.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: superheroes.length,
+              itemBuilder: (context, index) {
+                final superhero = superheroes[index];
+                return ListTile(
+                  leading: Image.network(superhero.imageUrl),
+                  title: Text(superhero.name),
+                  subtitle: Text('Power: ${superhero.power}'),
+                );
+              },
+            ),
+    );
+  }
+}
+
+# Step 4: Display the Data in the App
+import 'package:flutter/material.dart';
+import 'superhero_list.dart'; // Import the SuperheroList widget
+
+void main() {
+  runApp(SuperheroApp());
+}
+
+class SuperheroApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Superhero Encyclopedia',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: SuperheroList(),
+    );
+  }
+}
+
+
 

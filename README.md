@@ -1,6 +1,6 @@
 # amfoss-tasks
 
-Hi, I’m B.CHAKRADHA. I’m excited to contribute to this project and be a part of the AMFOSS community. I am a computer science student with a passion for technology and open-source development.
+Hi, I’m B.CHAKRADHAR. I’m excited to contribute to this project and be a part of the AMFOSS community. I am a computer science student with a passion for technology and open-source development.
 
 # Why should we choose you?
 

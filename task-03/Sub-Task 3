@@ -1,1 +1,227 @@
+# python
+def print_diamond(n):
+    for i in range(n):
+        print(' ' * (n - i - 1) + '*' * (2 * i + 1))
+    for i in range(n - 2, -1, -1):
+        print(' ' * (n - i - 1) + '*' * (2 * i + 1))
+
+n = int(input("Enter a number: "))
+print_diamond(n)
+
+# Ruby
+def print_diamond(n)
+    (0...n).each do |i|
+        puts ' ' * (n - i - 1) + '*' * (2 * i + 1)
+    end
+    (n - 2).downto(0) do |i|
+        puts ' ' * (n - i - 1) + '*' * (2 * i + 1)
+    end
+end
+
+print "Enter a number: "
+n = gets.to_i
+print_diamond(n)
+
+# Elixir
+defmodule Diamond do
+  def print_diamond(n) do
+    for i <- 0..(n-1) do
+      IO.puts String.duplicate(" ", n - i - 1) <> String.duplicate("*", 2 * i + 1)
+    end
+    for i <- (n-2)..0 do
+      IO.puts String.duplicate(" ", n - i - 1) <> String.duplicate("*", 2 * i + 1)
+    end
+  end
+end
+
+IO.write("Enter a number: ")
+n = IO.gets("") |> String.trim() |> String.to_integer()
+Diamond.print_diamond(n)
+
+# Javascript
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+function printDiamond(n) {
+    for (let i = 0; i < n; i++) {
+        console.log(' '.repeat(n - i - 1) + '*'.repeat(2 * i + 1));
+    }
+    for (let i = n - 2; i >= 0; i--) {
+        console.log(' '.repeat(n - i - 1) + '*'.repeat(2 * i + 1));
+    }
+}
+
+rl.question('Enter a number: ', (answer) => {
+    const n = parseInt(answer);
+    printDiamond(n);
+    rl.close();
+});
+
+# Java
+import java.util.Scanner;
+
+public class SubTask03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int n = scanner.nextInt();
+        printDiamond(n);
+        scanner.close();
+    }
+
+    public static void printDiamond(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < 2 * i + 1; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = 0; j < n - i - 1; j++) {
+                System.out.print(" ");
+            }
+            for (int j = 0; j < 2 * i + 1; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
+
+# Go
+package main
+
+import (
+    "fmt"
+)
+
+func printDiamond(n int) {
+    for i := 0; i < n; i++ {
+        fmt.Printf("%s%s\n", repeat(" ", n-i-1), repeat("*", 2*i+1))
+    }
+    for i := n - 2; i >= 0; i-- {
+        fmt.Printf("%s%s\n", repeat(" ", n-i-1), repeat("*", 2*i+1))
+    }
+}
+
+func repeat(s string, count int) string {
+    result := ""
+    for i := 0; i < count; i++ {
+        result += s
+    }
+    return result
+}
+
+func main() {
+    var n int
+    fmt.Print("Enter a number: ")
+    fmt.Scan(&n)
+    printDiamond(n)
+}
+
+# C 
+#include <stdio.h>
+
+void print_diamond(int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            printf(" ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+    for (int i = n - 2; i >= 0; i--) {
+        for (int j = 0; j < n - i - 1; j++) {
+            printf(" ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int n;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    print_diamond(n);
+    return 0;
+}
+
+# c++
+#include <stdio.h>
+
+void print_diamond(int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            printf(" ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+    for (int i = n - 2; i >= 0; i--) {
+        for (int j = 0; j < n - i - 1; j++) {
+            printf(" ");
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int n;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    print_diamond(n);
+    return 0;
+}
+
+# Rust
+use std::io;
+
+fn print_diamond(n: usize) {
+    for i in 0..n {
+        println!("{}{}", " ".repeat(n - i - 1), "*".repeat(2 * i + 1));
+    }
+    for i in (0..n - 1).rev() {
+        println!("{}{}", " ".repeat(n - i - 1), "*".repeat(2 * i + 1));
+    }
+}
+
+fn main() {
+    let mut input = String::new();
+    println!("Enter a number: ");
+    io::stdin().read_line(&mut input).expect("Failed to read line");
+    let n: usize = input.trim().parse().expect("Invalid number");
+    print_diamond(n);
+}
+
+# Haskell
+import Control.Monad (replicateM_)
+
+printDiamond :: Int -> IO ()
+printDiamond n = do
+    mapM_ (\i -> putStrLn (replicate (n - i - 1) ' ' ++ replicate (2 * i + 1) '*')) [0..(n-1)]
+    mapM_ (\i -> putStrLn (replicate (n - i - 1) ' ' ++ replicate (2 * i + 1) '*')) [n-2,n-3..0]
+
+main :: IO ()
+main = do
+    putStr "Enter a number: "
+    n <- readLn
+    printDiamond n
+
 

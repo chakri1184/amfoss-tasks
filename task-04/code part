@@ -1,0 +1,76 @@
+pip install python-telegram-bot requests
+
+https://www.googleapis.com/books/v1/volumes?q=subject:{genre}&maxResults=5
+
+import requests
+
+def get_books_by_genre(genre):
+    url = f"https://www.googleapis.com/books/v1/volumes?q=subject:{genre}&maxResults=5"
+    response = requests.get(url)
+    data = response.json()
+    books = []
+
+    for item in data.get('items', []):
+        volume_info = item['volumeInfo']
+        book_details = {
+            'title': volume_info.get('title', 'No Title'),
+            'author': ', '.join(volume_info.get('authors', ['No Author'])),
+            'description': volume_info.get('description', 'No Description'),
+            'publishedDate': volume_info.get('publishedDate', 'No Date'),
+            'language': volume_info.get('language', 'No Language'),
+            'previewLink': volume_info.get('previewLink', 'No Preview Link')
+        }
+        books.append(book_details)
+    return books
+
+
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, CallbackContext
+import logging
+
+# Set up logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Define command handler
+def start(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text('Hi! Use /recommend <genre> to get book recommendations.')
+
+def recommend(update: Update, context: CallbackContext) -> None:
+    genre = ' '.join(context.args)
+    if not genre:
+        update.message.reply_text('Please provide a genre after the command, e.g., /recommend Fiction')
+        return
+
+    books = get_books_by_genre(genre)
+    if not books:
+        update.message.reply_text('No books found for this genre.')
+        return
+
+    response = ""
+    for book in books:
+        response += f"Title: {book['title']}\n"
+        response += f"Author: {book['author']}\n"
+        response += f"Description: {book['description']}\n"
+        response += f"Published Date: {book['publishedDate']}\n"
+        response += f"Language: {book['language']}\n"
+        response += f"Preview: {book['previewLink']}\n\n"
+
+    update.message.reply_text(response)
+
+def main() -> None:
+    # Replace 'YOUR_TOKEN' with your actual bot token
+    updater = Updater("YOUR_TOKEN")
+
+    dp = updater.dispatcher
+
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("recommend", recommend))
+
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
+
+python pagepal_bot.py

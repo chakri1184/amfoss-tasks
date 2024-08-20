@@ -1,1 +1,122 @@
+# python
+with open('input.txt', 'r') as infile:
+    content = infile.read()
+
+with open('output.txt', 'w') as outfile:
+    outfile.write(content)
+
+# Ruby
+content = File.read('input.txt')
+File.write('output.txt', content)
+
+# Elixir
+{:ok, content} = File.read("input.txt")
+File.write("output.txt", content)
+
+# Javascript
+const fs = require('fs');
+
+fs.readFile('input.txt', 'utf8', (err, data) => {
+    if (err) throw err;
+    fs.writeFile('output.txt', data, (err) => {
+        if (err) throw err;
+    });
+});
+
+# Java
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class SubTask02 {
+    public static void main(String[] args) {
+        try {
+            String content = new String(Files.readAllBytes(Paths.get("input.txt")));
+            Files.write(Paths.get("output.txt"), content.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+# Go
+package main
+
+import (
+    "io/ioutil"
+    "os"
+)
+
+func main() {
+    content, err := ioutil.ReadFile("input.txt")
+    if err != nil {
+        panic(err)
+    }
+    err = ioutil.WriteFile("output.txt", content, 0644)
+    if err != nil {
+        panic(err)
+    }
+}
+
+# C
+#include <stdio.h>
+
+int main() {
+    FILE *inputFile = fopen("input.txt", "r");
+    FILE *outputFile = fopen("output.txt", "w");
+    
+    if (inputFile == NULL || outputFile == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+
+    char ch;
+    while ((ch = fgetc(inputFile)) != EOF) {
+        fputc(ch, outputFile);
+    }
+
+    fclose(inputFile);
+    fclose(outputFile);
+    return 0;
+}
+
+# C++
+  #include <fstream>
+  #include <iostream>
+
+int main() {
+    std::ifstream inputFile("input.txt");
+    std::ofstream outputFile("output.txt");
+    
+    if (!inputFile || !outputFile) {
+        std::cerr << "Error opening file" << std::endl;
+        return 1;
+    }
+
+    std::string line;
+    while (std::getline(inputFile, line)) {
+        outputFile << line << std::endl;
+    }
+
+    inputFile.close();
+    outputFile.close();
+    return 0;
+}
+
+# Rust
+use std::fs;
+
+fn main() {
+    let content = fs::read_to_string("input.txt").expect("Unable to read file");
+    fs::write("output.txt", content).expect("Unable to write file");
+}
+
+# Haskell
+import System.IO
+
+main :: IO ()
+main = do
+    content <- readFile "input.txt"
+    writeFile "output.txt" content
+
 

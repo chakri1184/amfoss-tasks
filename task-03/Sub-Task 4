@@ -1,1 +1,251 @@
+# Python
+def print_diamond_to_file(n, filename):
+    with open(filename, 'w') as f:
+        for i in range(n):
+            f.write(' ' * (n - i - 1) + '*' * (2 * i + 1) + '\n')
+        for i in range(n - 2, -1, -1):
+            f.write(' ' * (n - i - 1) + '*' * (2 * i + 1) + '\n')
 
+with open('input.txt', 'r') as infile:
+    n = int(infile.read().strip())
+
+print_diamond_to_file(n, 'output.txt')
+
+
+# Ruby
+def print_diamond_to_file(n, filename)
+    File.open(filename, 'w') do |f|
+        (0...n).each do |i|
+            f.puts ' ' * (n - i - 1) + '*' * (2 * i + 1)
+        end
+        (n - 2).downto(0) do |i|
+            f.puts ' ' * (n - i - 1) + '*' * (2 * i + 1)
+        end
+    end
+end
+
+n = File.read('input.txt').to_i
+print_diamond_to_file(n, 'output.txt')
+
+# Elixir
+defmodule Diamond do
+  def print_diamond_to_file(n, filename) do
+    content = Enum.concat(
+      for i <- 0..(n-1), do: String.duplicate(" ", n - i - 1) <> String.duplicate("*", 2 * i + 1) <> "\n",
+      for i <- (n-2)..0, do: String.duplicate(" ", n - i - 1) <> String.duplicate("*", 2 * i + 1) <> "\n"
+    )
+    File.write(filename, content)
+  end
+end
+
+{:ok, content} = File.read("input.txt")
+n = String.trim(content) |> String.to_integer()
+Diamond.print_diamond_to_file(n, "output.txt")
+
+# Javascript
+const fs = require('fs');
+
+function printDiamondToFile(n, filename) {
+    let output = '';
+    for (let i = 0; i < n; i++) {
+        output += ' '.repeat(n - i - 1) + '*'.repeat(2 * i + 1) + '\n';
+    }
+    for (let i = n - 2; i >= 0; i--) {
+        output += ' '.repeat(n - i - 1) + '*'.repeat(2 * i + 1) + '\n';
+    }
+    fs.writeFile(filename, output, (err) => {
+        if (err) throw err;
+    });
+}
+
+fs.readFile('input.txt', 'utf8', (err, data) => {
+    if (err) throw err;
+    const n = parseInt(data.trim());
+    printDiamondToFile(n, 'output.txt');
+});
+
+# Java
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class SubTask04 {
+    public static void main(String[] args) {
+        try {
+            String content = new String(Files.readAllBytes(Paths.get("input.txt")));
+            int n = Integer.parseInt(content.trim());
+            generateDiamond(n, "output.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void generateDiamond(int n, String filename) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            sb.append(" ".repeat(n - i - 1)).append("*".repeat(2 * i + 1)).append("\n");
+        }
+        for (int i = n - 2; i >= 0; i--) {
+            sb.append(" ".repeat(n - i - 1)).append("*".repeat(2 * i + 1)).append("\n");
+        }
+        Files.write(Paths.get(filename), sb.toString().getBytes());
+    }
+}
+
+# Go
+package main
+
+import (
+    "fmt"
+    "io/ioutil"
+    "os"
+    "strconv"
+    "strings"
+)
+
+func printDiamondToFile(n int, filename string) {
+    var sb strings.Builder
+    for i := 0; i < n; i++ {
+        sb.WriteString(fmt.Sprintf("%s%s\n", repeat(" ", n-i-1), repeat("*", 2*i+1)))
+    }
+    for i := n - 2; i >= 0; i-- {
+        sb.WriteString(fmt.Sprintf("%s%s\n", repeat(" ", n-i-1), repeat("*", 2*i+1)))
+    }
+    ioutil.WriteFile(filename, []byte(sb.String()), 0644)
+}
+
+func repeat(s string, count int) string {
+    return strings.Repeat(s, count)
+}
+
+func main() {
+    content, err := ioutil.ReadFile("input.txt")
+    if err != nil {
+        panic(err)
+    }
+    n, err := strconv.Atoi(strings.TrimSpace(string(content)))
+    if err != nil {
+        panic(err)
+    }
+    printDiamondToFile(n, "output.txt")
+}
+
+# C
+#include <stdio.h>
+#include <stdlib.h>
+
+void print_diamond_to_file(int n, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            fputc(' ', file);
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            fputc('*', file);
+        }
+        fputc('\n', file);
+    }
+    for (int i = n - 2; i >= 0; i--) {
+        for (int j = 0; j < n - i - 1; j++) {
+            fputc(' ', file);
+        }
+        for (int j = 0; j < 2 * i + 1; j++) {
+            fputc('*', file);
+        }
+        fputc('\n', file);
+    }
+    
+    fclose(file);
+}
+
+int main() {
+    FILE *file = fopen("input.txt", "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+
+    int n;
+    fscanf(file, "%d", &n);
+    fclose(file);
+
+    print_diamond_to_file(n, "output.txt");
+    return 0;
+}
+
+# C++
+#include <fstream>
+#include <iostream>
+#include <string>
+
+void print_diamond_to_file(int n, const std::string &filename) {
+    std::ofstream file(filename);
+    if (!file) {
+        std::cerr << "Error opening file" << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < n; i++) {
+        file << std::string(n - i - 1, ' ') << std::string(2 * i + 1, '*') << std::endl;
+    }
+    for (int i = n - 2; i >= 0; i--) {
+        file << std::string(n - i - 1, ' ') << std::string(2 * i + 1, '*') << std::endl;
+    }
+}
+
+int main() {
+    std::ifstream file("input.txt");
+    if (!file) {
+        std::cerr << "Error opening file" << std::endl;
+        return 1;
+    }
+
+    int n;
+    file >> n;
+    file.close();
+
+    print_diamond_to_file(n, "output.txt");
+    return 0;
+}
+
+# Rust
+use std::fs;
+use std::io;
+
+fn print_diamond_to_file(n: usize, filename: &str) {
+    let mut content = String::new();
+    for i in 0..n {
+        content.push_str(&format!("{}{}\n", " ".repeat(n - i - 1), "*".repeat(2 * i + 1)));
+    }
+    for i in (0..n - 1).rev() {
+        content.push_str(&format!("{}{}\n", " ".repeat(n - i - 1), "*".repeat(2 * i + 1)));
+    }
+    fs::write(filename, content).expect("Unable to write file");
+}
+
+fn main() {
+    let content = fs::read_to_string("input.txt").expect("Unable to read file");
+    let n: usize = content.trim().parse().expect("Invalid number");
+    print_diamond_to_file(n, "output.txt");
+}
+
+# Haskell
+import System.IO
+
+printDiamondToFile :: Int -> FilePath -> IO ()
+printDiamondToFile n filename = writeFile filename content
+  where
+    topHalf = [ replicate (n - i - 1) ' ' ++ replicate (2 * i + 1) '*' | i <- [0..(n-1)] ]
+    bottomHalf = [ replicate (n - i - 1) ' ' ++ replicate (2 * i + 1) '*' | i <- reverse [0..(n-2)] ]
+    content = unlines (topHalf ++ bottomHalf)
+
+main :: IO ()
+main = do
+    putStr "Enter a number: "
+    n <- readLn
+    printDiamondToFile n "output.txt"

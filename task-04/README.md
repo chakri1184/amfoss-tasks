@@ -56,6 +56,21 @@ Advanced Features: Add features like user preferences, favorite books, or more d
 Feedback Mechanism: Implement a way for users to provide feedback or rate the book recommendations.
 This approach and review outline the key considerations for building and deploying the Telegram book recommendation bot, ensuring it meets user needs and functions effectively.
 
+# initialize git
+git init
+
+# Add files
+git add pagepal_bot.py
+git add README.md
+
+# Commit changes
+git commit -m "Initial commit for PagePal bot"
+
+# Push to github
+git remote add origin https://github.com/shraavv/PagePal-Telegram-bot-phase2.git
+git push -u origin master
+
+
 
 
 

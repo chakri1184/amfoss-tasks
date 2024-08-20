@@ -7,6 +7,7 @@ Approach:
 
 This is a basic exercise to print "Hello, World!" to the console.
 It serves as a starting point to ensure the programming environment is correctly set up and to demonstrate basic syntax in each language.
+
 Review:
 
 Python: Direct use of print() function; straightforward and idiomatic.
@@ -25,6 +26,7 @@ Approach:
 Read content from input.txt.
 Write the read content to output.txt.
 This demonstrates file handling and basic I/O operations in each language.
+
 Review:
 
 Python: Uses context managers (with statement) for safe file operations, which is a best practice in Python.
@@ -42,6 +44,7 @@ Approach:
 Takes user input for the number n.
 Generates a diamond pattern of asterisks with n rows in the top half and n-1 rows in the bottom half.
 Prints the pattern to the console.
+
 Review:
 
 Python: Uses nested loops and string operations to generate the pattern. Simple and clear.
@@ -59,6 +62,7 @@ Approach:
 Reads a number n from input.txt.
 Generates a diamond pattern of asterisks.
 Writes the pattern to output.txt.
+
 Review:
 
 Python: Uses similar logic to Sub-Task 3 but writes the pattern to a file. Uses file handling in a safe manner.

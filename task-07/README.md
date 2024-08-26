@@ -28,7 +28,8 @@ Testing and Documentation:
 
 Test the CLI with different movie files to ensure functionality.
 Document the project with clear instructions on how to use the tool.
-Review of the Task
+
+# Review of the Task
 
 Strengths:
 The task is well-suited for practicing Python scripting, CLI development, and web scraping.

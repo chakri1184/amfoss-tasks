@@ -1,1 +1,122 @@
+1. Setup Your Project
+flutter create hero_dex
+cd hero_dex
+
+2. Define Your Data Model
+// models/superhero.dart
+
+class Superhero {
+  final String name;
+  final String description;
+  final String imageUrl;
+
+  Superhero({required this.name, required this.description, required this.imageUrl});
+}
+
+3. Create Sample Data
+// data/superheroes.dart
+
+import '../models/superhero.dart';
+
+final List<Superhero> superheroes = [
+  Superhero(
+    name: 'Spider-Man',
+    description: 'A superhero with spider-like abilities.',
+    imageUrl: 'https://example.com/spiderman.jpg',
+  ),
+  Superhero(
+    name: 'Iron Man',
+    description: 'A billionaire inventor in a high-tech suit.',
+    imageUrl: 'https://example.com/ironman.jpg',
+  ),
+  // Add more superheroes here
+];
+
+4. Build the User Interface
+// lib/main.dart
+
+import 'package:flutter/material.dart';
+import 'data/superheroes.dart';
+import 'models/superhero.dart';
+
+void main() {
+  runApp(HeroDexApp());
+}
+
+class HeroDexApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'HERO-DEX',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: SuperheroListScreen(),
+    );
+  }
+}
+
+class SuperheroListScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Superheroes'),
+      ),
+      body: ListView.builder(
+        itemCount: superheroes.length,
+        itemBuilder: (context, index) {
+          final superhero = superheroes[index];
+          return ListTile(
+            leading: Image.network(superhero.imageUrl, width: 50, height: 50),
+            title: Text(superhero.name),
+            subtitle: Text(superhero.description),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SuperheroDetailScreen(superhero: superhero),
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+class SuperheroDetailScreen extends StatelessWidget {
+  final Superhero superhero;
+
+  SuperheroDetailScreen({required this.superhero});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(superhero.name),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.network(superhero.imageUrl),
+            SizedBox(height: 16),
+            Text(
+              superhero.name,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            SizedBox(height: 16),
+            Text(superhero.description),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+6. Run Your App
+flutter run
 

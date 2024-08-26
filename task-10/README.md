@@ -8,7 +8,7 @@ bash
 git clone https://github.com/hrideshmg/Operation-Pixel-Merge
 cd Operation-Pixel-Merge
 
-Setup Virtual Environment: Create and activate a virtual environment.
+2.Setup Virtual Environment: Create and activate a virtual environment.
 python3 -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 

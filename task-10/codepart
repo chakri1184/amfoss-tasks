@@ -1,1 +1,52 @@
+Here's a basic example of how you might implement the stitching process using OpenCV and Pillow.
+
+# python
+import cv2
+import numpy as np
+from PIL import Image
+
+def load_images(image_folder):
+    images = []
+    for i in range(1, 101):  # Assuming images are named 1.jpg, 2.jpg, ..., 100.jpg
+        img_path = f"{image_folder}/{i}.jpg"
+        img = cv2.imread(img_path)
+        if img is not None:
+            images.append(img)
+    return images
+
+def stitch_images(images):
+    # Initialize OpenCV stitcher
+    stitcher = cv2.createStitcher() if hasattr(cv2, 'createStitcher') else cv2.createStitcher(False)
+    
+    # Stitch images
+    status, stitched_image = stitcher.stitch(images)
+    
+    if status != cv2.Stitcher_OK:
+        raise Exception(f"Stitching failed with status {status}")
+    
+    return stitched_image
+
+def save_image(image, output_path):
+    # Convert from OpenCV BGR to PIL RGB
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    pil_image = Image.fromarray(image_rgb)
+    pil_image.save(output_path)
+
+def main():
+    image_folder = 'images'  # Folder containing the fragmented images
+    output_path = 'stitched_image.jpg'
+    
+    print("Loading images...")
+    images = load_images(image_folder)
+    
+    print("Stitching images...")
+    stitched_image = stitch_images(images)
+    
+    print(f"Saving stitched image to {output_path}...")
+    save_image(stitched_image, output_path)
+    
+    print("Done!")
+
+if __name__ == "__main__":
+    main()
 

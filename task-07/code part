@@ -1,1 +1,72 @@
+1.Clone the Repository
+git clone https://github.com/hrideshmg/Pirates-Dilemma.git
+cd Pirates-Dilemma
+
+2.Setup Virtual Environment:Create and activate a virtual environment for the project.
+python3 -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+
+3.Install Required Libraries: Install the necessary libraries like requests, BeautifulSoup4, and Click.
+pip install requests beautifulsoup4 click
+
+# CODE IMPLEMENTATION
+import os
+import requests
+from bs4 import BeautifulSoup
+import click
+
+# Function to fetch subtitles using an API or web scraping
+def fetch_subtitles(movie_title):
+    # Example API call (you'll need an API key or scrape the site)
+    url = f"https://example-subtitles-api.com/search/{movie_title}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        subtitles = response.json()
+        return subtitles
+    else:
+        # Handle error or perform web scraping as an alternative
+        return []
+
+# Function to download the selected subtitle
+def download_subtitle(subtitle_url, output_path):
+    response = requests.get(subtitle_url, stream=True)
+    if response.status_code == 200:
+        with open(output_path, 'wb') as file:
+            file.write(response.content)
+        print(f"Subtitle downloaded to {output_path}")
+    else:
+        print("Failed to download subtitle.")
+
+@click.command()
+@click.argument('file_path', type=click.Path(exists=True))
+def cli(file_path):
+    """CLI tool to search and download subtitles for an MP4 file."""
+    # Extract movie title from the file path
+    movie_title = os.path.splitext(os.path.basename(file_path))[0]
+    print(f"Searching subtitles for: {movie_title}")
+
+    # Fetch subtitle options
+    subtitles = fetch_subtitles(movie_title)
+    if not subtitles:
+        print("No subtitles found.")
+        return
+
+    # Display subtitle options
+    for i, subtitle in enumerate(subtitles):
+        print(f"{i + 1}. {subtitle['language']} - {subtitle['title']}")
+
+    # Ask user to select a subtitle
+    choice = click.prompt("Enter the number of the subtitle to download", type=int)
+    selected_subtitle = subtitles[choice - 1]
+
+    # Download the selected subtitle
+    download_subtitle(selected_subtitle['url'], f"{movie_title}.srt")
+
+if __name__ == '__main__':
+    cli()
+
+bash
+git add .
+git commit -m "Implemented subtitle searching and downloading CLI tool"
+git push origin main
 

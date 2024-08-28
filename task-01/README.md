@@ -12,3 +12,6 @@ Goal: Work towards typing at least 60 Words Per Minute (WPM) with 95% accuracy o
 Proof of Achievement: Once you've reached the goal, share your high score in the #general channel on Discord for extra recognition.
 
 Touch Typing Requirement: Ensure that you are using the touch typing method to achieve the WPM and accuracy goals.
+
+![Screenshot 2024-08-28 195908](https://github.com/user-attachments/assets/436040d5-dc66-4cbd-b7a9-2fec4c565c25)
+

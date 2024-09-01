@@ -1,4 +1,4 @@
-This task emphasizes the importance of touch typing for programmers, highlighting how it can improve both speed and long-term physical well-being. Here's a summary of what you need to do:
+This task emphasizes the importance of touch typing for programmers, highlighting how it can improve both speed and long-term physical well-being. 
 
 This approach not only aims to enhance your typing speed but also encourages the development of proper typing habits, which can prevent long-term physical issues like neck pain..
 
